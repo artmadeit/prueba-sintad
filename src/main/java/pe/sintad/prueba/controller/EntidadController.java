@@ -2,7 +2,7 @@ package pe.sintad.prueba.controller;
 
 import javax.validation.Valid;
 
-import org.springdoc.core.annotations.ParameterObject;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
