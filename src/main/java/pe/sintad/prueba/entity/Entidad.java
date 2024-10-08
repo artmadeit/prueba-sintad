@@ -3,6 +3,7 @@ package pe.sintad.prueba.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,6 +18,7 @@ public class Entidad {
     Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_tipo_documento")
     TipoDocumento tipoDocumento;
 
     String nroDocumento;
@@ -26,6 +28,7 @@ public class Entidad {
     String nombreComercial;
 
     @ManyToOne
+    @JoinColumn(name = "id_tipo_contribuyente")
     TipoContribuyente tipoContribuyente;
 
     String direccion;
