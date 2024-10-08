@@ -1,2 +1,7 @@
-spring.application.name: prueba
+spring:
+  application.name: prueba
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db
+    username: user
+    password: password
 cors_origin: "*"
