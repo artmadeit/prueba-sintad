@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,49 +20,36 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import pe.sintad.prueba.dto.TipoDocumentoRequest;
 import pe.sintad.prueba.entity.TipoDocumento;
-import pe.sintad.prueba.repository.TipoDocumentoRepository;
+import pe.sintad.prueba.service.TipoDocumentoService;
 
 @RestController
 @RequestMapping("tipo-documentos")
 @AllArgsConstructor
 @Tag(name = "tipo-documentos")
 public class TipoDocumentoController {
+    TipoDocumentoService tipoDocumentoService;
     
-    TipoDocumentoRepository tipoDocumentoRepository;
-
     @GetMapping
     public Page<TipoDocumento> findAll(@ParameterObject Pageable pageable) {
-        return tipoDocumentoRepository.findAll(pageable);
+        return tipoDocumentoService.findAll(pageable);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<TipoDocumento> findById(@PathVariable Long id) {
-        return ResponseEntity.of(tipoDocumentoRepository.findById(id));
+        return ResponseEntity.of(tipoDocumentoService.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    @Transactional
     public Long create(@RequestBody @Valid TipoDocumentoRequest tipoDocumentoRequest) {
-        var tipoDocumento = toModel(tipoDocumentoRequest, new TipoDocumento());
-        tipoDocumento = tipoDocumentoRepository.save(tipoDocumento);
-        return tipoDocumento.getId();
+        return tipoDocumentoService.create(tipoDocumentoRequest);
     }
 
     @PutMapping("{id}")
-    @Transactional
     public ResponseEntity<Long> edit(@PathVariable Long id, @RequestBody @Valid TipoDocumentoRequest tipoDocumentoRequest) {
-        return tipoDocumentoRepository.findById(id).map(tipoDocumento -> {
-            toModel(tipoDocumentoRequest, tipoDocumento);
-            return ResponseEntity.ok(tipoDocumentoRepository.save(tipoDocumento).getId());
+        return tipoDocumentoService.edit(id, tipoDocumentoRequest).map(tipoDocumento -> {
+            return ResponseEntity.ok(tipoDocumento.getId());
         }).orElse(ResponseEntity.notFound().build());
-    }
-
-    private TipoDocumento toModel(TipoDocumentoRequest tipoDocumentoRequest, TipoDocumento tipoDocumento) {
-        tipoDocumento.setCodigo(tipoDocumentoRequest.getCodigo());
-        tipoDocumento.setNombre(tipoDocumentoRequest.getNombre());
-        tipoDocumento.setDescripcion(tipoDocumentoRequest.getDescripcion());
-        return tipoDocumento;
     }
 }
 

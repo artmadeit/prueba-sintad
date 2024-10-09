@@ -21,47 +21,40 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import pe.sintad.prueba.dto.TipoContribuyenteRequest;
 import pe.sintad.prueba.entity.TipoContribuyente;
-import pe.sintad.prueba.repository.TipoContribuyenteRepository;
+import pe.sintad.prueba.service.TipoContribuyenteService;
 
 @RestController
 @RequestMapping("tipo-contribuyentes")
 @AllArgsConstructor
 @Tag(name = "tipo-contribuyentes")
 public class TipoContribuyenteController {
-    
-    TipoContribuyenteRepository tipoContribuyenteRepository;
+
+    TipoContribuyenteService tipoContribuyenteService;
 
     @GetMapping
     public Page<TipoContribuyente> findAll(@ParameterObject Pageable pageable) {
-        return tipoContribuyenteRepository.findAll(pageable);
+        return tipoContribuyenteService.findAll(pageable);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<TipoContribuyente> findById(@PathVariable Long id) {
-        return ResponseEntity.of(tipoContribuyenteRepository.findById(id));
+        return ResponseEntity.of(tipoContribuyenteService.findById(id));
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    @Transactional
     public Long create(@RequestBody @Valid TipoContribuyenteRequest tipoContribuyenteRequest) {
-        var tipoContribuyente = toModel(tipoContribuyenteRequest, new TipoContribuyente());
-        tipoContribuyente = tipoContribuyenteRepository.save(tipoContribuyente);
-        return tipoContribuyente.getId();
+        return tipoContribuyenteService.create(tipoContribuyenteRequest);
     }
 
     @PutMapping("{id}")
     @Transactional
-    public ResponseEntity<Long> edit(@PathVariable Long id, @RequestBody @Valid TipoContribuyenteRequest tipoContribuyenteRequest) {
-        return tipoContribuyenteRepository.findById(id).map(tipoContribuyente -> {
-            toModel(tipoContribuyenteRequest, tipoContribuyente);
-            return ResponseEntity.ok(tipoContribuyenteRepository.save(tipoContribuyente).getId());
+    public ResponseEntity<Long> edit(
+            @PathVariable Long id,
+            @RequestBody @Valid TipoContribuyenteRequest tipoContribuyenteRequest) {
+        return tipoContribuyenteService.edit(id, tipoContribuyenteRequest).map(tipoContribuyente -> {
+            return ResponseEntity.ok(tipoContribuyente.getId());
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    private TipoContribuyente toModel(TipoContribuyenteRequest tipoContribuyenteRequest, TipoContribuyente tipoContribuyente) {
-        tipoContribuyente.setNombre(tipoContribuyenteRequest.getNombre());
-        return tipoContribuyente;
-    }
 }
-
