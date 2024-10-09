@@ -97,6 +97,13 @@
 			<artifactId>springdoc-openapi-security</artifactId>
 			<version>1.8.0</version>
 		</dependency>
+		
+		<dependency>
+			 <!-- For handling any kind of exceptions, specially those with spring security issues  -->
+			<groupId>org.zalando</groupId>
+			<artifactId>problem-spring-web-starter</artifactId>
+			<version>0.25.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
