@@ -1,26 +1,23 @@
 package pe.sintad.prueba;
 
-import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.zalando.problem.spring.web.advice.security.AuthenticationAdviceTrait;
-
-import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 @ControllerAdvice
-@AllArgsConstructor
-public class GlobalExceptionHandler implements AuthenticationAdviceTrait {
-    final MessageSource messageSource;
+public class GlobalExceptionHandler {
 
-    // @ExceptionHandler(OuracademyException.class)
-    // public ResponseEntity<Problem> handleIllegalArgument(OuracademyException ex, Locale locale) {
-    //     var problem = Problem.builder()
-    //         .withDetail(ex.getCode())
-    //         .withTitle(ex.getTitle())
-    //         .withType(ex.getType())
-    //         .withStatus(ex.getStatus())
-    //         .with("args", ex.getArgs())
-    //         .build();
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Problem> handleIllegalArgument(IllegalArgumentException ex) {
+        var problem = Problem.builder()
+            .withDetail(ex.getMessage())
+            .withTitle("Error argumento invalido")
+            .withStatus(Status.BAD_REQUEST)
+            .build();
 
-    //     return new ResponseEntity<>(problem, HttpStatus.valueOf(ex.getStatus().getStatusCode()));
-    // }
+        return new ResponseEntity<>(problem, HttpStatus.valueOf(Status.BAD_REQUEST.getStatusCode()));
+    }
 }
