@@ -11,4 +11,5 @@ public interface EntidadService {
     Optional<Entidad> findById(Long id);
     Long create(EntidadRequest entidadRequest);
     Optional<Entidad> edit(Long id, EntidadRequest entidadRequest);
+    void delete(Long id);
 }

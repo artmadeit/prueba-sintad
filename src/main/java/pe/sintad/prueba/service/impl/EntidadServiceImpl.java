@@ -61,4 +61,9 @@ public class EntidadServiceImpl implements EntidadService {
         return entidad;
     }
 
+    @Override
+    public void delete(Long id) {
+        this.entidadRepository.deleteById(id);
+    }
+
 }
