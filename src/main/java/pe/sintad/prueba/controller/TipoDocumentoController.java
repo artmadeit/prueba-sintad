@@ -31,8 +31,11 @@ public class TipoDocumentoController {
     TipoDocumentoService tipoDocumentoService;
     
     @GetMapping
-    public Page<TipoDocumento> findAll(@ParameterObject Pageable pageable) {
-        return tipoDocumentoService.findAll(pageable);
+    public Page<TipoDocumento> findAll(@ParameterObject Pageable pageable, String nombre) {
+        if(nombre == null || "".equals(nombre)) {
+            return tipoDocumentoService.findAll(pageable);
+        }
+        return tipoDocumentoService.findByNombre(nombre, pageable);
     }
 
     @GetMapping("{id}")

@@ -7,6 +7,7 @@ import pe.sintad.prueba.dto.TipoDocumentoRequest;
 import pe.sintad.prueba.entity.TipoDocumento;
 
 public interface TipoDocumentoService {
+    Page<TipoDocumento> findByNombre(String nombre, Pageable pageable);
     Page<TipoDocumento> findAll(Pageable pageable);
     Optional<TipoDocumento> findById(Long id);
     Long create(TipoDocumentoRequest tipoDocumentoRequest);

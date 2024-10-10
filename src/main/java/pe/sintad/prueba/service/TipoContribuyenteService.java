@@ -12,4 +12,5 @@ public interface TipoContribuyenteService {
     Long create(TipoContribuyenteRequest tipoContribuyenteRequest);
     Optional<TipoContribuyente> edit(Long id, TipoContribuyenteRequest tipoContribuyenteRequest);
     void delete(Long id);
+    Page<TipoContribuyente> findByNombre(String nombre, Pageable pageable);
 }

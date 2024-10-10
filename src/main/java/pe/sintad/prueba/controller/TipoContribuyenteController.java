@@ -33,8 +33,11 @@ public class TipoContribuyenteController {
     TipoContribuyenteService tipoContribuyenteService;
 
     @GetMapping
-    public Page<TipoContribuyente> findAll(@ParameterObject Pageable pageable) {
-        return tipoContribuyenteService.findAll(pageable);
+    public Page<TipoContribuyente> findAll(@ParameterObject Pageable pageable, String nombre) {
+        if(nombre == null || "".equals(nombre)) {
+            return tipoContribuyenteService.findAll(pageable);
+        }
+        return tipoContribuyenteService.findByNombre(nombre, pageable);
     }
 
     @GetMapping("{id}")

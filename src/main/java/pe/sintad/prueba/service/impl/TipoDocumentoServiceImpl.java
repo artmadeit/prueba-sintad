@@ -56,4 +56,9 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
     public void delete(Long id) {
         tipoDocumentoRepository.deleteById(id);
     }
+
+    @Override
+    public Page<TipoDocumento> findByNombre(String nombre, Pageable pageable) {
+        return tipoDocumentoRepository.findByNombreContains(nombre, pageable);
+    }
 }

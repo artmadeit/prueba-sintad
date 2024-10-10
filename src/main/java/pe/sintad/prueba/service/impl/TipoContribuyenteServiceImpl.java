@@ -56,4 +56,9 @@ public class TipoContribuyenteServiceImpl implements TipoContribuyenteService {
     public void delete(Long id) {
         this.tipoContribuyenteRepository.deleteById(id);
     }
+
+    @Override
+    public Page<TipoContribuyente> findByNombre(String nombre, Pageable pageable) {
+        return tipoContribuyenteRepository.findByNombreContains(nombre, pageable);
+    }
 }
