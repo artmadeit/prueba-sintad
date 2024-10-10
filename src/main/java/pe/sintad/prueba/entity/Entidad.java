@@ -9,11 +9,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 @Entity
 @Table(name = "tb_entidad")
 @Data
+@SQLDelete(sql = "UPDATE tb_entidad SET estado = false WHERE id_entidad=?")
+@Where(clause = "estado = true")
 public class Entidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,5 +43,5 @@ public class Entidad {
 
     String telefono;
 
-    boolean estado;
+    boolean estado = true;
 }
