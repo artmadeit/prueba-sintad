@@ -1,5 +1,7 @@
 package pe.sintad.prueba.auth;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class UserController {
     
     @PostMapping("/login")
     @Operation(summary = "Public endpoint", security = {})
-    public String login(@RequestBody @Valid SignInService.LoginInput input) {
-        return signInService.run(input);
+    public Map<String, String> login(@RequestBody @Valid SignInService.LoginInput input) {
+        return Map.of("token", signInService.run(input));
     }
 }
