@@ -11,4 +11,5 @@ public interface TipoContribuyenteService {
     Optional<TipoContribuyente> findById(Long id);
     Long create(TipoContribuyenteRequest tipoContribuyenteRequest);
     Optional<TipoContribuyente> edit(Long id, TipoContribuyenteRequest tipoContribuyenteRequest);
+    void delete(Long id);
 }

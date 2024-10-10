@@ -51,4 +51,9 @@ public class TipoContribuyenteServiceImpl implements TipoContribuyenteService {
         tipoContribuyente.setNombre(tipoContribuyenteRequest.getNombre());
         return tipoContribuyente;
     }
+
+    @Override
+    public void delete(Long id) {
+        this.tipoContribuyenteRepository.deleteById(id);
+    }
 }
