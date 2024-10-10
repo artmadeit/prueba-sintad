@@ -17,7 +17,6 @@ public class EntidadRequest {
     @NotBlank
     String razonSocial;
 
-    @NotBlank
     String nombreComercial;
 
     @NotNull
