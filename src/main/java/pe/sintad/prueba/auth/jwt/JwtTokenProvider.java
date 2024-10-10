@@ -52,7 +52,7 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return this.prefix +  Jwts.builder()//
+        return Jwts.builder()//
                 .setClaims(claims(username, authorities))//
                 .setIssuedAt(now).setExpiration(validity)//
                 .signWith(SignatureAlgorithm.HS256, secretKey).compact();
