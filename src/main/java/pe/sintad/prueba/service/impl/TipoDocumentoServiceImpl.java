@@ -51,4 +51,9 @@ public class TipoDocumentoServiceImpl implements TipoDocumentoService {
         tipoDocumento.setDescripcion(tipoDocumentoRequest.getDescripcion());
         return tipoDocumento;
     }
+
+    @Override
+    public void delete(Long id) {
+        tipoDocumentoRepository.deleteById(id);
+    }
 }

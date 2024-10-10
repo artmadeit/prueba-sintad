@@ -11,4 +11,5 @@ public interface TipoDocumentoService {
     Optional<TipoDocumento> findById(Long id);
     Long create(TipoDocumentoRequest tipoDocumentoRequest);
     Optional<TipoDocumento> edit(Long id, TipoDocumentoRequest tipoDocumentoRequest);
+    void delete(Long id);
 }

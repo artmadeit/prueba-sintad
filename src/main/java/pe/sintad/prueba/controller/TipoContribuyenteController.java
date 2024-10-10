@@ -59,7 +59,7 @@ public class TipoContribuyenteController {
     }
 
     @DeleteMapping("{id}")
-    public void edit(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         tipoContribuyenteService.delete(id);
     }
 }
